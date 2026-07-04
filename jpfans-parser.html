@@ -7,33 +7,103 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
+      margin: 0;
+      padding: 40px 20px;
+      background: #ffffff;
     }
-    input, button {
+
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .side-image {
+      width: 220px;
+      flex-shrink: 0;
+    }
+
+    .side-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .main-content {
+      flex: 1;
+      max-width: 700px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    input,
+    button {
       width: 100%;
       padding: 12px;
       margin-top: 10px;
       font-size: 16px;
+      box-sizing: border-box;
     }
+
+    button {
+      cursor: pointer;
+    }
+
     #output {
       margin-top: 20px;
       padding: 12px;
       background: #f4f4f4;
       word-break: break-all;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .page-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .side-image {
+        width: 200px;
+      }
+
+      .main-content {
+        width: 100%;
+        max-width: 700px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>JPFans Link Parser</h1>
-  <input
-    id="urlInput"
-    type="text"
-    placeholder="Paste JPFans URL here"
-  />
-  <button onclick="convertUrl()">Convert</button>
-  <div id="output"></div>
+  <div class="page-wrapper">
+    <div class="side-image">
+      <img src="images/image1.jpg" alt="Left side image" width="220" height="300" />
+    </div>
+
+    <div class="main-content">
+      <h1>JPFans Link Parser</h1>
+
+      <input
+        id="urlInput"
+        type="text"
+        placeholder="Paste JPFans URL here"
+      />
+
+      <button onclick="convertUrl()">Convert</button>
+
+      <div id="output"></div>
+    </div>
+
+    <div class="side-image">
+      <img src="images/image2.jpg" alt="Right side image" width="220" height="300" />
+    </div>
+  </div>
 
   <script>
     function convertUrl() {
@@ -50,6 +120,7 @@
         }
 
         const newUrl = `https://jpfans.com/product?id=${itemId}&platform=mercari`;
+
         output.innerHTML = `<a href="${newUrl}" target="_blank" rel="noopener noreferrer">${newUrl}</a>`;
       } catch {
         output.textContent = "Invalid URL.";
