@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JPFans Link Parser</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f4f4f4;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <h1>JPFans Link Parser</h1>
+  <input
+    id="urlInput"
+    type="text"
+    placeholder="Paste JPFans URL here"
+  />
+  <button onclick="convertUrl()">Convert</button>
+  <div id="output"></div>
+
+  <script>
+    function convertUrl() {
+      const url = document.getElementById("urlInput").value.trim();
+      const output = document.getElementById("output");
+
+      try {
+        const parsed = new URL(url);
+        const itemId = parsed.searchParams.get("id");
+
+        if (!itemId) {
+          output.textContent = "No id parameter found.";
+          return;
+        }
+
+        const newUrl = `https://jpfans.com/product?id=${itemId}&platform=mercari`;
+        output.innerHTML = `<a href="${newUrl}" target="_blank" rel="noopener noreferrer">${newUrl}</a>`;
+      } catch {
+        output.textContent = "Invalid URL.";
+      }
+    }
+  </script>
+</body>
+</html>
